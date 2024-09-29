@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "vV2m/htE+lqw9H0ddz+62JTDvMp9wlaKL87mYBqHuyw=",
+  "Source": "Demo.API",
+  "BasePath": "_content/Demo.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Demo.API\\wwwroot",
+      "Source": "Demo.API",
+      "ContentRoot": "E:\\Repos\\Projects\\MagicVilla\\Demo.API\\wwwroot\\",
+      "BasePath": "_content/Demo.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
