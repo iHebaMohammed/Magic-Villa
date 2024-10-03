@@ -35,25 +35,25 @@ namespace Demo.BLL.Repositories
         public void Delete(T entity)
             => _context.Set<T>().Remove(entity);
 
-        
-
-        public Task<IReadOnlyList<T>> GetAllWithSpicifications(ISpecifications<T> specifications)
+        public async Task<IReadOnlyList<T>> GetAllWithSpicifications(ISpecifications<T> specifications)
         {
-            throw new NotImplementedException();
+            return await ApplySpecifications(specifications).ToListAsync();
         }
 
-        
-
-        public Task<int> GetCountAsync(ISpecifications<T> specifications)
+        public async Task<T> GetEntityWithSpecification(ISpecifications<T> specifications)
         {
-            throw new NotImplementedException();
+            return await ApplySpecifications(specifications).FirstOrDefaultAsync();
         }
 
-        public Task<T> GetEntityWithSpecification(ISpecifications<T> specifications)
+        public async Task<int> GetCountAsync(ISpecifications<T> specifications)
         {
-            throw new NotImplementedException();
+            return await ApplySpecifications(specifications).CountAsync();
         }
 
+        private IQueryable<T> ApplySpecifications(ISpecifications<T> specification)
+        {
+            return SpecificationEvaluator<T>.GetQuery(_context.Set<T>(), specification);
+        }
 
     }
 }

@@ -13,7 +13,7 @@ namespace Demo.DAL.Entities
         public int VillaNo { get; set; }
         public string SpecialDetails { get; set; }
         public int VillaId { get; set; }
-        public Villa Villa { get; set; }
+        public virtual Villa Villa { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
     }

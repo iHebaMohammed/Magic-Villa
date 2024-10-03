@@ -10,3 +10,6 @@ E:\Repos\Projects\MagicVilla\Demo.DAL\obj\Debug\net8.0\refint\Demo.DAL.dll
 E:\Repos\Projects\MagicVilla\Demo.DAL\obj\Debug\net8.0\Demo.DAL.pdb
 E:\Repos\Projects\MagicVilla\Demo.DAL\obj\Debug\net8.0\ref\Demo.DAL.dll
 E:\Repos\Projects\MagicVilla\Demo.DAL\obj\Debug\net8.0\Demo.DAL.csproj.AssemblyReference.cache
+E:\Repos\Projects\MagicVilla\Demo.DAL\obj\Debug\net8.0\Demo.DAL.sourcelink.json
+E:\Repos\Projects\MagicVilla\Demo.DAL\bin\Debug\net8.0\Demo.DAL.runtimeconfig.json
+E:\Repos\Projects\MagicVilla\Demo.DAL\obj\Debug\net8.0\Demo.DAL.genruntimeconfig.cache

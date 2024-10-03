@@ -50,12 +50,36 @@ namespace Demo.API.Controllers
         public async Task<ActionResult<VillaNumberDTO>> GetByIdAsync(int id)
         {
             if (id == 0)
-                return BadRequest(new ApiErrorResponse(StatusCodes.Status400BadRequest));
+            {
+                _response.IsSuccess =false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessages.Add("Bad Request in this id");
+                return BadRequest(_response);
+            }
             var villaNumbers = await _unitOfWork.Repository<VillaNumber>().GetByIdAsync(id);
             if (villaNumbers == null)
-                return NotFound(new ApiErrorResponse(StatusCodes.Status404NotFound));
-            var mappedVillaNumber = _mapper.Map<VillaNumber, VillaNumberDTO>(villaNumbers);
-            return Ok(mappedVillaNumber);
+            {
+                _response.IsSuccess =false;
+                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.ErrorMessages.Add("This villa number not found");
+                return NotFound(_response);
+            }
+            try
+            {
+                var mappedVillaNumber = _mapper.Map<VillaNumber, VillaNumberDTO>(villaNumbers);
+                _response.IsSuccess = true;
+                _response.Result = mappedVillaNumber;
+                _response.StatusCode = HttpStatusCode.OK;
+
+                return Ok(_response);
+            }
+            catch (Exception ex) 
+            {
+                _response.IsSuccess=false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessages.Add($"{ex.Message}");
+                return BadRequest(_response);
+            }
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -64,15 +88,31 @@ namespace Demo.API.Controllers
         public async Task<ActionResult<VillaNumberDTO>> Create(VillaNumberCreateDTO villaNumberDTO)
         {
             if (villaNumberDTO == null)
-                return BadRequest(new ApiErrorResponse(StatusCodes.Status400BadRequest));
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessages.Add("Null villa number is not allow!");
+                return BadRequest(_response);
+            }
+            try
+            {
+                var mappedVillaNumber = _mapper.Map<VillaNumberCreateDTO, VillaNumber>(villaNumberDTO);
 
+                await _unitOfWork.Repository<VillaNumber>().Create(mappedVillaNumber);
+                await _unitOfWork.Complete();
 
-
-            var mappedVillaNumber = _mapper.Map<VillaNumberCreateDTO, VillaNumber>(villaNumberDTO);
-
-            await _unitOfWork.Repository<VillaNumber>().Create(mappedVillaNumber);
-            await _unitOfWork.Complete();
-            return Ok(mappedVillaNumber);
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.Result = villaNumberDTO;
+                return Ok(_response);
+            }
+            catch (Exception ex) 
+            {
+                _response.IsSuccess=false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessages.Add($"{ex.Message}");
+                return BadRequest(_response);
+            }
         }
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -81,22 +121,58 @@ namespace Demo.API.Controllers
         {
             var villaNumber = await _unitOfWork.Repository<VillaNumber>().GetByIdAsync(id);
             if (villaNumber == null)
-                return NotFound(new ApiErrorResponse(StatusCodes.Status404NotFound));
+            {
+                _response.IsSuccess=false;
+                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.ErrorMessages.Add("Not found this villa number");
+                return NotFound(_response);
+            }
+            try
+            {
+                _unitOfWork.Repository<VillaNumber>().Delete(villaNumber);
+                await _unitOfWork.Complete();
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.NoContent;
+                _response.Result = "Deleted";
+                return Ok(_response);
+            }
+            catch (Exception ex) 
+            {
+                _response.IsSuccess=false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessages.Add(ex.Message);
+                return BadRequest(_response);
+            }
 
-            _unitOfWork.Repository<VillaNumber>().Delete(villaNumber);
-            await _unitOfWork.Complete();
-            return NoContent();
         }
 
         [HttpPut]
         public async Task<ActionResult<VillaDTO>> Update(VillaNumberUpdateDTO villaNumberDTO)
         {
             if (villaNumberDTO == null)
-                return BadRequest(StatusCodes.Status400BadRequest);
-            var mappedVillaNumber = _mapper.Map<VillaNumberUpdateDTO, VillaNumber>(villaNumberDTO);
-            _unitOfWork.Repository<VillaNumber>().Update(mappedVillaNumber);
-            await _unitOfWork.Complete();
-            return Ok(villaNumberDTO);
+            {
+                _response.StatusCode=HttpStatusCode.BadRequest;
+                _response.IsSuccess=false;
+                _response.ErrorMessages.Add("Bad request");
+                return BadRequest(_response);
+            }
+            try
+            {
+                var mappedVillaNumber = _mapper.Map<VillaNumberUpdateDTO, VillaNumber>(villaNumberDTO);
+                _unitOfWork.Repository<VillaNumber>().Update(mappedVillaNumber);
+                await _unitOfWork.Complete();
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.NoContent ;
+                _response.Result = villaNumberDTO;
+                return Ok(_response);
+            }
+            catch (Exception ex) 
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.ErrorMessages.Add(ex.Message);
+                return BadRequest(_response);
+            }
         }
     }
 }

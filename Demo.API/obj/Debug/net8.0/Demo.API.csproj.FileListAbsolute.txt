@@ -150,3 +150,13 @@ E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Serilog.Settings.Configur
 E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Serilog.Sinks.Console.dll
 E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
 E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Serilog.Sinks.File.dll
+E:\Repos\Projects\MagicVilla\Demo.API\obj\Debug\net8.0\Demo.API.sourcelink.json
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Castle.Core.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+E:\Repos\Projects\MagicVilla\Demo.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

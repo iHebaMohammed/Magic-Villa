@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Demo.API.DTOs;
 using Demo.DAL.Entities;
+using Demo.DAL.Entities.Identity;
 
 namespace Demo.API.Helper
 {
@@ -15,6 +16,8 @@ namespace Demo.API.Helper
             CreateMap<VillaNumber, VillaNumberDTO>().ReverseMap();
             CreateMap<VillaNumber, VillaNumberCreateDTO>().ReverseMap();
             CreateMap<VillaNumber , VillaNumberUpdateDTO>().ReverseMap();
+
+            CreateMap<AppUser , UserDTO>().ReverseMap();
         }
     }
 }

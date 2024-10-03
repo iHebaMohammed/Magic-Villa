@@ -1,5 +1,7 @@
 ﻿using Demo.API.Errors;
 using Demo.API.Helper;
+using Demo.API.Services;
+using Demo.API.Services.IServices;
 using Demo.BLL.Interfaces;
 using Demo.BLL.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ namespace Demo.API.Extentions
         {
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped(typeof(IGenaricRepository<>) , typeof(GenaricRepository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(MappingProfiles));
 
             services.Configure<ApiBehaviorOptions>(options =>

@@ -87,7 +87,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Demo.API.DTOs.VillaDTO",
+        "Type": "Demo.DAL.ApiResponse",
         "MediaTypes": [
           "text/plain",
           "application/json",
