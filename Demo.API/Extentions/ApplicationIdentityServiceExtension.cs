@@ -11,38 +11,34 @@ namespace Demo.API.Extentions
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services , IConfiguration configuration)
         {
-            var key = configuration.GetValue<string>("ApiSettings:Secret");
 
-
-            services.AddIdentity<AppUser, IdentityRole>(options => 
-            {
+            services.AddIdentity<AppUser, IdentityRole>(options => {
+                //options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.SignIn.RequireConfirmedAccount = false;
-            })
-                .AddEntityFrameworkStores<MagicVillaIdentityDbContext>()
-                .AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<MagicVillaIdentityDbContext>();
 
+            var key = configuration.GetValue<string>("ApiSettings:Secret");
 
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            services.AddAuthentication(/*JwtBearerDefaults.AuthenticationScheme*/options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(x => {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+             .AddJwtBearer(options => {
+                 //options.TokenValidationParameters = new TokenValidationParameters()
+                 //{
+                 //    ValidateIssuer = true,
+                 //    ValidIssuer = configuration["JWT:ValidIssuer"],
+                 //    ValidateAudience = true,
+                 //    ValidAudience = configuration["JWT:ValidAudience"],
+                 //    ValidateLifetime = true,
+                 //    ValidateIssuerSigningKey = true,
+                 //    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
+                 //};
+             });
+            services.AddAuthorization();
 
             return services;
         }

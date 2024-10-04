@@ -36,13 +36,15 @@ namespace Demo.MVC
             builder.Services.AddScoped<IVillaService, VillaService>();
             builder.Services.AddHttpClient<IVillaNumberSevices, VillaNumberServices>();
             builder.Services.AddScoped<IVillaNumberSevices, VillaNumberServices>();
+            builder.Services.AddHttpClient<IAuthServices, AuthServices>();
+            builder.Services.AddScoped<IAuthServices, AuthServices>();
 
 			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Auth/Login");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -51,6 +53,8 @@ namespace Demo.MVC
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

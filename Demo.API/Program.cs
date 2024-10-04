@@ -62,6 +62,14 @@ namespace Demo.API
                 });
             });
 
+            builder.Services.AddCors(options => {
+                options.AddPolicy("CorsPolicy", options => {
+                    options.AllowAnyHeader();
+                    options.AllowAnyMethod();
+                    options.AllowAnyOrigin();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -92,6 +100,11 @@ namespace Demo.API
                 }
             }
 
+            app.UseCors("CorsPolicy");
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
